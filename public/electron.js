@@ -13,10 +13,10 @@ function createWindow() {
     minWidth: 1000,
     height: 1400,
     minHeight: 1200,
+    autoHideMenuBar: true
   });
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
   if (isDev) {
-    // Open the DevTools..
     // mainWindow.webContents.openDevTools();
   }
   mainWindow.on('closed', () => mainWindow = null);

@@ -1,25 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Navbar from './components/static/navbar'
+import Drawer from './components/static/drawer'
+
+import './components/components.scss';
+import './components/static/static.scss';
 
 function App() {
+  const [optionsOpen, setOptions] = useState(false)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="App">
+        <Navbar optionsOpen={optionsOpen} setOptions={setOptions} />
+      </div>
+      <Drawer optionsOpen={optionsOpen} setOptions={setOptions} />
+    </>
   );
 }
 

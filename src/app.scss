@@ -1,0 +1,11 @@
+@mixin flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.App {
+  @include flex;
+  height: 100vh;
+  background-color: rgb(230, 230, 230);
+}
