@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import Navbar from './components/static/navbar'
-import Drawer from './components/static/drawer'
+import Appbar from './components/appbar'
+import Drawer from './components/drawer'
 
 import './components/components.scss';
-import './components/static/static.scss';
 
 function App() {
-  const [optionsOpen, setOptions] = useState(false)
+  const [drawerOpen, setDrawer] = useState(false)
   return (
     <>
       <div className="App">
-        <Navbar optionsOpen={optionsOpen} setOptions={setOptions} />
+        <Appbar drawerOpen={drawerOpen} setDrawer={setDrawer} />
+        <Drawer drawerOpen={drawerOpen} setDrawer={setDrawer} />
       </div>
-      <Drawer optionsOpen={optionsOpen} setOptions={setOptions} />
     </>
   );
 }

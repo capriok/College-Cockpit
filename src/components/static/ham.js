@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Ham = ({ optionsOpen }) => {
+const Ham = ({ drawerOpen }) => {
   return (
     <div className="ham">
-      <span className={optionsOpen ? "x" : "line"}></span>
-      <span className={optionsOpen ? "x hide" : "line"}></span>
-      <span className={optionsOpen ? "x" : "line"}></span>
+      <span className={drawerOpen ? "x" : "line"}></span>
+      <span className={drawerOpen ? "x hide" : "line"}></span>
+      <span className={drawerOpen ? "x" : "line"}></span>
     </div>
   )
 }

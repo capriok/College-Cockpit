@@ -6,20 +6,22 @@ const path = require('path');
 const isDev = require('electron-is-dev');
 
 let mainWindow;
-
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 2000,
     minWidth: 1000,
     height: 1400,
     minHeight: 1200,
-    autoHideMenuBar: true
+    autoHideMenuBar: true,
+    webPreferences: {
+      nodeIntegration: true,
+      webviewTag: true
+    }
   });
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
-  if (isDev) {
-    // mainWindow.webContents.openDevTools();
-  }
+  if (isDev) mainWindow.webContents.openDevTools();
   mainWindow.on('closed', () => mainWindow = null);
+
 }
 
 app.on('ready', createWindow);
