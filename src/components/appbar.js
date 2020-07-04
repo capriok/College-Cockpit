@@ -79,6 +79,7 @@ const AppBar = ({ drawerOpen, setDrawer }) => {
       prevTabLength.current = tabs.length
     }
     console.log(tabs);
+    console.log(tabs.length);
   }, [tabs])
 
   return (
