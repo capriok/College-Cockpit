@@ -1,12 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import short from 'short-uuid'
+import { Tooltip, } from 'react-tippy';
+import { Modal, Input, Button } from 'godspeed'
 
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import bootstrapPlugin from '@fullcalendar/bootstrap';
+import '@fortawesome/fontawesome-free/css/all.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'react-tippy/dist/tippy.css';
 
-import { Modal, Input, Button } from 'godspeed'
+
+// https://fullcalendar.io/docs/event-source
+// https://codesandbox.io/s/amazing-brattain-puwfq?file=/src/DemoApp.jsx:1206-1278
 
 const Planner = () => {
   const [events, setEvents] = useState({})
@@ -66,15 +74,19 @@ const Planner = () => {
   return (
     <div className="planner">
       <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, bootstrapPlugin]}
+        themeSystem="sandstone"
         initialView="dayGridMonth"
         headerToolbar={toolbar}
+        nowIndicator={true}
         weekends={true}
+        selectMirror={true}
         editable={true}
         selectable={true}
-        eventContent={eventInfo => renderEventContent(eventInfo)}
         select={selectInfo => setPrompt({ ...prompt, state: true, selectInfo: selectInfo })}
         eventClick={clickInfo => setConfirm({ ...confirm, state: true, clickInfo: clickInfo })}
+        eventsSet={events => handleEvents(events)}
+        eventContent={eventInfo => renderEventContent(eventInfo)}
         initialEvents={[
           { title: 'event 1', date: '2020-06-15' }
         ]}
@@ -82,15 +94,17 @@ const Planner = () => {
       <Modal open={prompt.state} onClick={() => closePrompt()}>
         <h1>Create Event</h1>
         <br />
-        <Input placeholder="Title" underlined autoFocus
+        <Input placeholder="Title" underlined autoFocus style={{ width: '100%' }}
           onChange={e => setPrompt({ ...prompt, title: e.target.value })} />
         <br />
         <br />
+        <form id="promptForm" onSubmit={e => handleEventSubmit(e)}></form>
         <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100' }}>
           <Button
+            type="submit"
+            form="promptForm"
             text="Submit"
-            size="xsm"
-            onClick={e => handleEventSubmit(e)} />
+            size="xsm" />
           <Button
             text="Cancel"
             size="xsm"
@@ -100,16 +114,20 @@ const Planner = () => {
       <Modal open={confirm.state} onClick={() => closeConfirm()}>
         <h1>Delete Event?</h1>
         <br />
-        <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100' }}>
-          <Button
-            text="Delete"
-            size="xsm"
-            onClick={() => handleEventDelete()} />
-          <Button
-            text="Cancel"
-            size="xsm"
-            onClick={() => resetConfirm()} />
-        </div>
+        <form id="confirmForm">
+          <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100' }}>
+            <Button
+              type="submit"
+              form="confirmForm"
+              text="Delete"
+              size="xsm"
+              onClick={e => handleEventDelete(e)} />
+            <Button
+              text="Cancel"
+              size="xsm"
+              onClick={() => resetConfirm()} />
+          </div>
+        </form>
       </Modal>
     </div>
   )

@@ -54,6 +54,14 @@ const AppBar = ({ drawerOpen, setDrawer }) => {
 
   const closeTab = (i) => {
     const newTabs = tabs.filter((_, index) => index !== i)
+    console.log(newTabs.length);
+    if (newTabs.length === 3) {
+      activateTab(0)
+    } else if (newTabs.length > 3) {
+      activateTab(i - 1)
+    } else {
+      throw new Error('Something went wrong')
+    }
     setTabs(newTabs)
   }
 
@@ -64,6 +72,7 @@ const AppBar = ({ drawerOpen, setDrawer }) => {
       name: modal.url,
       src: `https://www.${modal.url}.com`,
       state: false,
+      component: false,
       closable: true
     }
     setTabs([

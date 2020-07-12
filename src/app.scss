@@ -4,19 +4,19 @@
   align-items: center;
 }
 $tab-bar: #191919;
-$tab-bg: #004565;
-$active-tab-bg: #00608d;
+$tab-bg: #2e455c;
+$active-tab-bg: #32577c;
 
 @mixin tabBorder {
   border-right: 2px solid black;
   box-shadow: 0px 3px 10px -5px black;
 }
-
+body {
+  background-color: rgb(230, 230, 230);
+}
 .App {
   @include flex;
   height: 100vh;
-  overflow: hidden;
-  background-color: rgb(230, 230, 230);
 }
 
 $dark-grey: #191919;
